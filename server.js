@@ -1,8 +1,9 @@
+require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config()
+
 
 const UserRoutes = require('./Routes/User');
 const ProfileRoutes = require('./Routes/Profile');
@@ -17,7 +18,7 @@ app.use(cors(
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json())
 
-const dbURL = 'mongodb+srv://admin:wwmp72j6d@cluster0-57cgu.mongodb.net/test?retryWrites=true&w=majority';
+const dbURL = process.env.DB_ACCESS_STRING;
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
   console.log('db is connected')
