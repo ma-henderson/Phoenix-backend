@@ -13,23 +13,23 @@ const secret = process.env.ACCESS_TOKEN_SECRET;
 router.post(
   '/edit',
   (req, res)=>{
-    const dbData = await isAuth(req);
-    console.log("dbData is:", dbData)
-    const formdata = {
-      userId: "NULLVALUE",
-      username: req.body.username, // Learn how to get data from another collection
-      description: req.body.description,
-      currentWeight: req.body.currentWeight,
-      goalWeight: req.body.goalWeight,
-      // profileImage: req.body.profileImage,
-    }
-    const theProfile = new UserProfile(formdata);
-    theProfile.save();
-    res.send('Profile editted succesfully');
-    console.log(formdata)
+    isAuth(req)
+    .then((dbData, err)=>{
+      const formdata = {
+        userId: dbData._id,
+        username: req.body.username,
+        description: req.body.description,
+        currentWeight: req.body.currentWeight,
+        goalWeight: req.body.goalWeight,
+        // profileImage: req.body.profileImage,
+      }
+      
+      const theProfile = new UserProfile(formdata);
+      theProfile.save();
+      res.send('Profile editted succesfully');
+    });    
   }
-)
-
+);
 // Front-end needs to present use information in profile (My Profile) - simple API endpoint
 router.post(
   '/info',

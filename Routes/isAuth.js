@@ -1,6 +1,6 @@
 const { verify } = require('jsonwebtoken');
 const UserModel = require ('../Models/User.js');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 const secret = process.env.ACCESS_TOKEN_SECRET;
@@ -14,13 +14,11 @@ const isAuth = async req => {
       // Verify the token
       var userId = verify(token, secret);
       console.log(`user ${userId.email} verified`)
-      console.log(userId.id)
       // Pulling _id from DB
-      UserModel.findById(userId.id, (err, dbResults)=>{
+      return await UserModel.findById(userId.id, (err, dbResults)=>{
         if (dbResults) {
           // send Frontend id and email
-          console.log("success", dbResults);
-          return dbResults
+          return dbResults;
         } else {
           send('no profile for this user')
         }
