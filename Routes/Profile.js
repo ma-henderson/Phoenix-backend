@@ -27,14 +27,20 @@ router.post(
       const theProfile = new UserProfile(formdata);
       theProfile.save();
       res.send('Profile editted succesfully');
-    });    
+    })
+    .catch(err=>console.log(err));
   }
 );
 // Front-end needs to present use information in profile (My Profile) - simple API endpoint
 router.post(
-  '/info',
+  '/',
   (req, res)=>{
-    res.send(isAuth(req))
+    isAuth(req)
+    .then((dbData, err)=>{
+      dbData.password = undefined;
+      res.send(dbData);
+    })
+    .catch(err=>console.log(err));
   }
 )
 

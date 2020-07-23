@@ -1,7 +1,6 @@
 const { verify } = require('jsonwebtoken');
 const UserModel = require ('../Models/User.js');
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
 
 const secret = process.env.ACCESS_TOKEN_SECRET;
 
