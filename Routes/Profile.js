@@ -31,7 +31,9 @@ router.post(
     .catch(err=>console.log(err));
   }
 );
-// Front-end needs to present use information in profile (My Profile) - simple API endpoint
+
+// Retrieving only User data, need to find out how to retrieve 
+// data from another collection after having verified User thru isAuth
 router.post(
   '/',
   (req, res)=>{

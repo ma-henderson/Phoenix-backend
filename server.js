@@ -4,10 +4,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-
 const UserRoutes = require('./Routes/User');
 const ProfileRoutes = require('./Routes/Profile');
-
+const GoalRoutes = require('./Routes/Goal');
 
 const app = express();
 
@@ -27,6 +26,8 @@ mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true})
 app.use('/user', UserRoutes);
 
 app.use('/profile', ProfileRoutes);
+
+app.use('/goal', GoalRoutes);
 
 app.get('/', (req, res) => {
   res.send("Home page (GET)");
